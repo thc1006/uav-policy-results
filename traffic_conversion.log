@@ -1,0 +1,5 @@
+INFO:__main__:Loaded 5000 traffic records
+INFO:__main__:Converting traffic records...
+INFO:__main__:Converted 5000 records
+INFO:__main__:Saved to /tmp/large_synthetic_dataset/converted.jsonl (JSONL format)
+INFO:__main__:✓ Conversion complete: /tmp/large_synthetic_dataset/converted.jsonl

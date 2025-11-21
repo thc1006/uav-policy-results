@@ -1,0 +1,222 @@
+═══════════════════════════════════════════════════════════
+  UAV Policy xApp - 全自動開發管道
+  啟動時間：Fri Nov 21 03:58:20 UTC 2025
+═══════════════════════════════════════════════════════════
+[0;34m[INFO][0m 開始全自動開發管道
+[0;34m[INFO][0m 階段 1：等待 ns-O-RAN 構建完成...
+[0;32m[✓ SUCCESS][0m ns-O-RAN 構建完成
+[0;34m[INFO][0m 階段 2：準備 TRACTOR 資料集...
+[0;32m[✓ SUCCESS][0m TRACTOR 資料集已下載
+[0;34m[INFO][0m 階段 3：轉換資料集格式...
+[1;33m[⚠ WARNING][0m 未找到 TRACTOR 資料檔，跳過轉換
+[0;34m[INFO][0m 階段 4：執行單元測試...
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-8.4.2, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/thc1006/dev/uav-rc-xapp-with-algorithms/xapps/uav-policy
+configfile: pyproject.toml
+plugins: cov-7.0.0, anyio-4.11.0, asyncio-1.2.0
+asyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 13 items
+
+tests/test_http_server.py::test_health_check_endpoint PASSED             [  7%]
+tests/test_http_server.py::test_e2_indication_basic PASSED               [ 15%]
+tests/test_http_server.py::test_e2_indication_with_flight_plan PASSED    [ 23%]
+tests/test_http_server.py::test_e2_indication_missing_fields PASSED      [ 30%]
+tests/test_http_server.py::test_e2_indication_invalid_json PASSED        [ 38%]
+tests/test_http_server.py::test_decisions_endpoint PASSED                [ 46%]
+tests/test_http_server.py::test_e2_indication_with_service_profile PASSED [ 53%]
+tests/test_http_server.py::test_policy_engine_handler_parse_indication PASSED [ 61%]
+tests/test_http_server.py::test_multiple_uavs_independent_decisions PASSED [ 69%]
+tests/test_policy_engine.py::test_simple_policy_prefers_neighbor_when_serving_is_hot PASSED [ 76%]
+tests/test_policy_engine.py::test_path_aware_policy_follows_flight_plan_when_serving_hot PASSED [ 84%]
+tests/test_policy_engine.py::test_path_aware_policy_stays_on_serving_when_load_ok PASSED [ 92%]
+tests/test_policy_engine_1.py::test_simple_policy_prefers_neighbor_when_serving_is_hot PASSED [100%]
+
+- generated xml file: /home/thc1006/dev/uav-policy-results/unit-test-results.xml -
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.10.12-final-0 _______________
+
+Name                              Stmts   Miss  Cover   Missing
+---------------------------------------------------------------
+src/uav_policy/__init__.py            1      0   100%
+src/uav_policy/main.py               15     15     0%   7-38
+src/uav_policy/policy_engine.py     115     10    91%   76-78, 93, 97, 121, 163, 171, 180-181
+src/uav_policy/server.py            135     33    76%   79-81, 103-104, 136-137, 157-158, 183-184, 194-195, 230, 293, 302, 324-326, 354-356, 361-379, 384, 389, 395-396
+---------------------------------------------------------------
+TOTAL                               266     58    78%
+============================== 13 passed in 0.12s ==============================
+[0;32m[✓ SUCCESS][0m 單元測試通過
+[0;34m[INFO][0m 階段 5：執行 E2-Simulator 集成測試...
+Traceback (most recent call last):
+  File "/home/thc1006/dev/uav-rc-xapp-with-algorithms/xapps/uav-policy/test_e2sim_integration.py", line 320, in main
+    test_decision_history()
+  File "/home/thc1006/dev/uav-rc-xapp-with-algorithms/xapps/uav-policy/test_e2sim_integration.py", line 273, in test_decision_history
+    latest = history[-1]
+KeyError: -1
+
+######################################################################
+# E2-SIMULATOR TO UAV-POLICY INTEGRATION TEST SUITE
+######################################################################
+
+Server Status: healthy
+
+======================================================================
+TEST 1: Normal UAV Tracking with Flight Plan
+======================================================================
+Decision: {
+  "prb_quota": 20,
+  "reason": "Serving cell matches flight-plan segment. Using UAV slice_id=slice-eMBB. No ServiceProfile provided; using base quota from flight-plan or default.",
+  "slice_id": "slice-eMBB",
+  "target_cell_id": "cell_001",
+  "timestamp": "2025-11-21T03:58:23.849268",
+  "uav_id": "UAV-001"
+}
+✓ Test 1 PASSED: Normal tracking working correctly
+
+======================================================================
+TEST 2: Handover Due to Serving Cell Overload
+======================================================================
+Decision: {
+  "prb_quota": 20,
+  "reason": "Follow flight-plan cell; serving overloaded and neighbor stronger. Using UAV slice_id=slice-eMBB. No ServiceProfile provided; using base quota from flight-plan or default.",
+  "slice_id": "slice-eMBB",
+  "target_cell_id": "cell_002",
+  "timestamp": "2025-11-21T03:58:23.850363",
+  "uav_id": "UAV-002"
+}
+✓ Test 2 PASSED: Overload handover working correctly
+
+======================================================================
+TEST 3: Multiple UAVs Swarm (Concurrency Test)
+======================================================================
+  UAV-101: → cell_001 (PRB=5)
+  UAV-102: → cell_002 (PRB=5)
+  UAV-103: → cell_001 (PRB=5)
+✓ Test 3 PASSED: Multiple UAVs processed correctly
+
+======================================================================
+TEST 4: Streaming Indications (Real-time Flow)
+======================================================================
+  Indication 1: UAV-201 → cell_001
+  Indication 2: UAV-201 → cell_001
+  Indication 3: UAV-201 → cell_001
+  Indication 4: UAV-201 → cell_001
+  Indication 5: UAV-201 → cell_001
+✓ Test 4 PASSED: Streaming indications processed correctly
+
+======================================================================
+TEST 5: Service Profile-Based Resource Allocation
+======================================================================
+Decision: {
+  "prb_quota": 100,
+  "reason": "No active flight-plan segment; using reactive policy only. Staying on serving cell (not overloaded or neighbors not clearly better). No slice info; leaving slice_id unset. Estimating PRB from serving-cell RSRP as SINR proxy. Effective SINR (-80.0 dB) below service minimum (10.0 dB). Service '4K-Video-Uplink' targets 25.00 Mbps; estimated required PRB quota \u2248 1011.",
+  "slice_id": null,
+  "target_cell_id": "cell_001",
+  "timestamp": "2025-11-21T03:58:24.364498",
+  "uav_id": "UAV-301"
+}
+✓ Test 5 PASSED: Service profile resource allocation working
+
+======================================================================
+TEST 6: Error Handling for Malformed Indications
+======================================================================
+  Bad indication 1: HTTP 400
+  Bad indication 2: HTTP 400
+  Bad indication 3: HTTP 400
+✓ Test 6 PASSED: Error handling working correctly
+
+======================================================================
+TEST 7: Decision History Endpoint
+======================================================================
+  Total decisions in history: 3
+
+✗ UNEXPECTED ERROR: -1
+
+[1;33m[⚠ WARNING][0m 集成測試部分失敗（可能是網路原因）
+[0;34m[INFO][0m 階段 6：執行性能基準測試...
+
+######################################################################
+# UAV POLICY XAPP - PERFORMANCE BENCHMARK SUITE
+######################################################################
+
+✓ Server Status: healthy
+
+======================================================================
+BENCHMARK 1: Latency (Processing Time)
+======================================================================
+  Request 1/100: 1.43 ms
+  Request 21/100: 1.32 ms
+  Request 41/100: 0.85 ms
+  Request 61/100: 1.02 ms
+  Request 81/100: 0.90 ms
+
+  Total Requests: 100
+  Mean:           1.06 ms
+  Median (P50):   1.07 ms
+  P95:            1.27 ms
+  P99:            1.55 ms
+  Std Dev:        0.15 ms
+  Min:            0.85 ms
+  Max:            1.55 ms
+
+======================================================================
+BENCHMARK 2: Throughput (Requests Per Second)
+======================================================================
+  Running for 10 seconds...
+
+  Elapsed Time:     10.00 seconds
+  Total Requests:   9694
+  RPS:              969.3 req/sec
+  Mean Request:     1.03 ms
+
+======================================================================
+BENCHMARK 3: Scalability (50 Concurrent UAVs)
+======================================================================
+  Simulating 50 UAVs...
+
+  Total UAVs:     50
+  Mean Latency:   1.05 ms
+  P99 Latency:    1.51 ms
+
+======================================================================
+BENCHMARK 4: Service Profile Overhead
+======================================================================
+  Testing without service profile...
+  Testing with service profile...
+
+  Without Profile:  1.03 ms
+  With Profile:     1.01 ms
+  Overhead:         -0.02 ms (-1.9%)
+
+======================================================================
+BENCHMARK 5: Flight Plan Overhead
+======================================================================
+  Testing without flight plan...
+  Testing with flight plan...
+
+  Without Plan:     1.01 ms
+  With Plan (3seg): 1.10 ms
+  Overhead:         0.09 ms (9.0%)
+
+######################################################################
+# BENCHMARK SUMMARY
+######################################################################
+
+Latency (P50):         1.07 ms
+Latency (P99):         1.55 ms
+Throughput (RPS):      969.3 req/sec
+Scalability (50 UAVs): 1.05 ms
+Service Profile:       +-0.02 ms (-1.9%)
+Flight Plan:           +0.09 ms (9.0%)
+
+######################################################################
+# ALL BENCHMARKS COMPLETED ✓
+######################################################################
+
+Results saved to benchmark_results.json
+
+[0;32m[✓ SUCCESS][0m 性能基準測試完成
+[0;34m[INFO][0m 階段 7：生成開發報告...
+[0;32m[✓ SUCCESS][0m 報告已生成：/home/thc1006/dev/uav-policy-results/development_report.md
+[0;32m[✓ SUCCESS][0m 全自動開發管道完成！

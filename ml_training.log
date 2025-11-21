@@ -1,0 +1,27 @@
+INFO:__main__:載入 5000 筆流量記錄
+INFO:__main__:開始訓練（200 episodes）...
+INFO:__main__:Episode 10/200 - Avg Reward: 125.65
+INFO:__main__:Episode 20/200 - Avg Reward: 123.75
+INFO:__main__:Episode 30/200 - Avg Reward: 125.50
+INFO:__main__:Episode 40/200 - Avg Reward: 124.75
+INFO:__main__:Episode 50/200 - Avg Reward: 124.85
+INFO:__main__:Episode 60/200 - Avg Reward: 123.85
+INFO:__main__:Episode 70/200 - Avg Reward: 125.65
+INFO:__main__:Episode 80/200 - Avg Reward: 123.85
+INFO:__main__:Episode 90/200 - Avg Reward: 126.10
+INFO:__main__:Episode 100/200 - Avg Reward: 123.60
+INFO:__main__:Episode 110/200 - Avg Reward: 123.50
+INFO:__main__:Episode 120/200 - Avg Reward: 123.95
+INFO:__main__:Episode 130/200 - Avg Reward: 124.55
+INFO:__main__:Episode 140/200 - Avg Reward: 125.90
+INFO:__main__:Episode 150/200 - Avg Reward: 126.65
+INFO:__main__:Episode 160/200 - Avg Reward: 126.50
+INFO:__main__:Episode 170/200 - Avg Reward: 124.65
+INFO:__main__:Episode 180/200 - Avg Reward: 124.20
+INFO:__main__:Episode 190/200 - Avg Reward: 125.40
+INFO:__main__:Episode 200/200 - Avg Reward: 124.25
+INFO:__main__:✓ 訓練完成
+INFO:__main__:評估策略（100 樣本）...
+INFO:__main__:評估結果：{'avg_reward': 1.5, 'success_rate': 15.0, 'handover_count': 0}
+INFO:__main__:模型已儲存：/home/thc1006/dev/uav-policy-results/optimized_policy_v2.json
+INFO:__main__:✓ ML 優化完成

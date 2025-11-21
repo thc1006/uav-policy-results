@@ -1,0 +1,81 @@
+
+######################################################################
+# UAV POLICY XAPP - PERFORMANCE BENCHMARK SUITE
+######################################################################
+
+✓ Server Status: healthy
+
+======================================================================
+BENCHMARK 1: Latency (Processing Time)
+======================================================================
+  Request 1/100: 1.29 ms
+  Request 21/100: 1.01 ms
+  Request 41/100: 0.92 ms
+  Request 61/100: 1.17 ms
+  Request 81/100: 0.94 ms
+
+  Total Requests: 100
+  Mean:           1.04 ms
+  Median (P50):   1.01 ms
+  P95:            1.29 ms
+  P99:            1.50 ms
+  Std Dev:        0.13 ms
+  Min:            0.86 ms
+  Max:            1.50 ms
+
+======================================================================
+BENCHMARK 2: Throughput (Requests Per Second)
+======================================================================
+  Running for 10 seconds...
+
+  Elapsed Time:     10.00 seconds
+  Total Requests:   9662
+  RPS:              966.2 req/sec
+  Mean Request:     1.03 ms
+
+======================================================================
+BENCHMARK 3: Scalability (50 Concurrent UAVs)
+======================================================================
+  Simulating 50 UAVs...
+
+  Total UAVs:     50
+  Mean Latency:   1.02 ms
+  P99 Latency:    1.27 ms
+
+======================================================================
+BENCHMARK 4: Service Profile Overhead
+======================================================================
+  Testing without service profile...
+  Testing with service profile...
+
+  Without Profile:  0.97 ms
+  With Profile:     1.04 ms
+  Overhead:         0.07 ms (6.9%)
+
+======================================================================
+BENCHMARK 5: Flight Plan Overhead
+======================================================================
+  Testing without flight plan...
+  Testing with flight plan...
+
+  Without Plan:     1.05 ms
+  With Plan (3seg): 1.06 ms
+  Overhead:         0.01 ms (1.1%)
+
+######################################################################
+# BENCHMARK SUMMARY
+######################################################################
+
+Latency (P50):         1.01 ms
+Latency (P99):         1.50 ms
+Throughput (RPS):      966.2 req/sec
+Scalability (50 UAVs): 1.02 ms
+Service Profile:       +0.07 ms (6.9%)
+Flight Plan:           +0.01 ms (1.1%)
+
+######################################################################
+# ALL BENCHMARKS COMPLETED ✓
+######################################################################
+
+Results saved to benchmark_results.json
+

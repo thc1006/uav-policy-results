@@ -1,0 +1,6 @@
+2025-11-21 03:58:24,445 - __main__ - INFO - Starting UAV policy xApp server...
+2025-11-21 03:58:24,446 - __main__ - INFO - Server configuration: host=0.0.0.0, port=5000, debug=False
+ * Serving Flask app 'uav_policy.server'
+ * Debug mode: off
+Address already in use
+Port 5000 is in use by another program. Either identify and stop that program, or start the server with a different port.

@@ -1,0 +1,85 @@
+Traceback (most recent call last):
+  File "/home/thc1006/dev/uav-rc-xapp-with-algorithms/xapps/uav-policy/test_e2sim_integration.py", line 320, in main
+    test_decision_history()
+  File "/home/thc1006/dev/uav-rc-xapp-with-algorithms/xapps/uav-policy/test_e2sim_integration.py", line 273, in test_decision_history
+    latest = history[-1]
+KeyError: -1
+
+######################################################################
+# E2-SIMULATOR TO UAV-POLICY INTEGRATION TEST SUITE
+######################################################################
+
+Server Status: healthy
+
+======================================================================
+TEST 1: Normal UAV Tracking with Flight Plan
+======================================================================
+Decision: {
+  "prb_quota": 20,
+  "reason": "Serving cell matches flight-plan segment. Using UAV slice_id=slice-eMBB. No ServiceProfile provided; using base quota from flight-plan or default.",
+  "slice_id": "slice-eMBB",
+  "target_cell_id": "cell_001",
+  "timestamp": "2025-11-21T06:16:13.939632",
+  "uav_id": "UAV-001"
+}
+✓ Test 1 PASSED: Normal tracking working correctly
+
+======================================================================
+TEST 2: Handover Due to Serving Cell Overload
+======================================================================
+Decision: {
+  "prb_quota": 20,
+  "reason": "Follow flight-plan cell; serving overloaded and neighbor stronger. Using UAV slice_id=slice-eMBB. No ServiceProfile provided; using base quota from flight-plan or default.",
+  "slice_id": "slice-eMBB",
+  "target_cell_id": "cell_002",
+  "timestamp": "2025-11-21T06:16:13.940857",
+  "uav_id": "UAV-002"
+}
+✓ Test 2 PASSED: Overload handover working correctly
+
+======================================================================
+TEST 3: Multiple UAVs Swarm (Concurrency Test)
+======================================================================
+  UAV-101: → cell_001 (PRB=5)
+  UAV-102: → cell_002 (PRB=5)
+  UAV-103: → cell_001 (PRB=5)
+✓ Test 3 PASSED: Multiple UAVs processed correctly
+
+======================================================================
+TEST 4: Streaming Indications (Real-time Flow)
+======================================================================
+  Indication 1: UAV-201 → cell_001
+  Indication 2: UAV-201 → cell_001
+  Indication 3: UAV-201 → cell_001
+  Indication 4: UAV-201 → cell_001
+  Indication 5: UAV-201 → cell_001
+✓ Test 4 PASSED: Streaming indications processed correctly
+
+======================================================================
+TEST 5: Service Profile-Based Resource Allocation
+======================================================================
+Decision: {
+  "prb_quota": 100,
+  "reason": "No active flight-plan segment; using reactive policy only. Staying on serving cell (not overloaded or neighbors not clearly better). No slice info; leaving slice_id unset. Estimating PRB from serving-cell RSRP as SINR proxy. Effective SINR (-80.0 dB) below service minimum (10.0 dB). Service '4K-Video-Uplink' targets 25.00 Mbps; estimated required PRB quota \u2248 1011.",
+  "slice_id": null,
+  "target_cell_id": "cell_001",
+  "timestamp": "2025-11-21T06:16:14.454914",
+  "uav_id": "UAV-301"
+}
+✓ Test 5 PASSED: Service profile resource allocation working
+
+======================================================================
+TEST 6: Error Handling for Malformed Indications
+======================================================================
+  Bad indication 1: HTTP 400
+  Bad indication 2: HTTP 400
+  Bad indication 3: HTTP 400
+✓ Test 6 PASSED: Error handling working correctly
+
+======================================================================
+TEST 7: Decision History Endpoint
+======================================================================
+  Total decisions in history: 3
+
+✗ UNEXPECTED ERROR: -1
+

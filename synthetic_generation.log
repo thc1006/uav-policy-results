@@ -1,0 +1,13 @@
+INFO:__main__:Generating metrics for 8 UEs...
+INFO:__main__:Saved /tmp/large_synthetic_dataset/1010123456002_metrics.csv
+INFO:__main__:Saved /tmp/large_synthetic_dataset/1010123456003_metrics.csv
+INFO:__main__:Saved /tmp/large_synthetic_dataset/1010123456004_metrics.csv
+INFO:__main__:Saved /tmp/large_synthetic_dataset/1010123456005_metrics.csv
+INFO:__main__:Saved /tmp/large_synthetic_dataset/1010123456006_metrics.csv
+INFO:__main__:Saved /tmp/large_synthetic_dataset/1010123456007_metrics.csv
+INFO:__main__:Saved /tmp/large_synthetic_dataset/1010123456008_metrics.csv
+INFO:__main__:Saved /tmp/large_synthetic_dataset/1010123456009_metrics.csv
+INFO:__main__:Generating base station metrics...
+INFO:__main__:Saved /tmp/large_synthetic_dataset/enb_metrics.csv
+INFO:__main__:Saved /tmp/large_synthetic_dataset/metadata.json
+INFO:__main__:✓ Synthetic TRACTOR dataset generated: /tmp/large_synthetic_dataset

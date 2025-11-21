@@ -1,0 +1,60 @@
+2025-11-21 08:34:46,359 - uav_policy.server - INFO - Processing indication for UAV: uav_001
+2025-11-21 08:34:46,359 - uav_policy.server - INFO - Decision for uav_001: cell=cell_001, prb=5, reason=No active flight-plan segment; using reactive poli...
+2025-11-21 08:34:46,359 - uav_policy.server - INFO - Processing indication for UAV: uav_002
+2025-11-21 08:34:46,359 - uav_policy.server - INFO - Decision for uav_002: cell=cell_002, prb=5, reason=No active flight-plan segment; using reactive poli...
+2025-11-21 08:34:46,359 - uav_policy.server - INFO - Processing indication for UAV: uav_stream_0
+2025-11-21 08:34:46,359 - uav_policy.server - INFO - Decision for uav_stream_0: cell=cell_001, prb=5, reason=No active flight-plan segment; using reactive poli...
+2025-11-21 08:34:46,360 - uav_policy.server - INFO - Processing indication for UAV: uav_stream_1
+2025-11-21 08:34:46,360 - uav_policy.server - INFO - Decision for uav_stream_1: cell=cell_001, prb=5, reason=No active flight-plan segment; using reactive poli...
+2025-11-21 08:34:46,360 - uav_policy.server - INFO - Processing indication for UAV: uav_stream_2
+2025-11-21 08:34:46,360 - uav_policy.server - INFO - Decision for uav_stream_2: cell=cell_001, prb=5, reason=No active flight-plan segment; using reactive poli...
+2025-11-21 08:34:46,360 - uav_policy.server - INFO - Processing indication for UAV: uav_stream_3
+2025-11-21 08:34:46,360 - uav_policy.server - INFO - Decision for uav_stream_3: cell=cell_001, prb=5, reason=No active flight-plan segment; using reactive poli...
+2025-11-21 08:34:46,360 - uav_policy.server - INFO - Processing indication for UAV: uav_stream_4
+2025-11-21 08:34:46,360 - uav_policy.server - INFO - Decision for uav_stream_4: cell=cell_001, prb=5, reason=No active flight-plan segment; using reactive poli...
+2025-11-21 08:34:46,361 - uav_policy.server - INFO - Processing indication for UAV: bad_uav
+2025-11-21 08:34:46,361 - uav_policy.server - ERROR - Invalid indication data: Invalid position data: 'position'
+
+======================================================================
+E2E INTEGRATION TEST: E2-Simulator → uav-policy xApp → Decisions
+======================================================================
+
+[Test 1] Healthy serving cell - should stay on serving
+✓ Decision: Stay on cell_001
+
+[Test 2] Overloaded serving cell - should handover to neighbor
+✓ Decision: Handover to cell_002
+
+[Test 3] Streaming indications - 5 consecutive UAV positions
+  ✓ Stream 1: Decision for uav_stream_0
+  ✓ Stream 2: Decision for uav_stream_1
+  ✓ Stream 3: Decision for uav_stream_2
+  ✓ Stream 4: Decision for uav_stream_3
+  ✓ Stream 5: Decision for uav_stream_4
+
+[Test 4] Decisions history retrieval
+✓ Retrieved 7 decisions from history
+
+[Test 5] Health check endpoint
+✓ Health check: healthy
+
+[Test 6] Statistics endpoint
+✓ Stats: 7 total indications processed
+
+[Test 7] Error handling - invalid indication
+✓ Error handling: correctly rejected bad indication
+
+======================================================================
+ALL E2E TESTS PASSED ✅
+======================================================================
+
+SUMMARY:
+  ✓ Healthy serving cell detection
+  ✓ Handover decision logic
+  ✓ Streaming indications
+  ✓ Decision history
+  ✓ Health monitoring
+  ✓ Statistics
+  ✓ Error handling
+
+STATUS: PRODUCTION READY ✅

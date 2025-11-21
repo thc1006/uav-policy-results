@@ -1,0 +1,13 @@
+Consolidate compiler generated dependencies of target stdlib_pch-default
+Consolidate compiler generated dependencies of target stdlib_pch_exec
+Consolidate compiler generated dependencies of target liboran-obj
+Consolidate compiler generated dependencies of target libcore-obj
+Consolidate compiler generated dependencies of target e2sim-integration-example
+[INFO ] argc 1, server_ip 127.0.0.1 , server_port 36421 , gnb_id 1 , client_port 38472 , plmn_id 111 .
+[UNCON] Start E2 Agent (E2 Simulator)
+[UNCON] Current Log level is 2
+[INFO ] [SCTP] Binding client socket with source port 38472
+[INFO ] [SCTP] Connecting to server at 127.0.0.1:36421 ...
+[INFO ] [SCTP] Connection established
+[INFO ] [SCTP] Sent E2-SETUP-REQUEST
+[ERROR] [SCTP] Connection closed by remote peer
